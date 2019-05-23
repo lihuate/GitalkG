@@ -1,7 +1,7 @@
 var _config = {
     blog_name       : 'Lihuate',         // 博客名称
     owner           : 'lihuate',           // github 用户名
-    repo            : 'lihuate.github.io',// github 中对应项目名
+    repo            : 'Gitalk',// github 中对应项目名
     per_page        : '10',                    // 默认一页显示几篇文章
     // 版权起始年份
     since_year: 2019,
