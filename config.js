@@ -4,7 +4,7 @@ var _config = {
     repo            : 'lihuate.github.io',// github 中对应项目名
     per_page        : '10',                    // 默认一页显示几篇文章
     // 版权起始年份
-    since_year: 2015,
+    since_year: 2019,
     // icp备案号 ICP_license: 京ICP备1234556号-1
     ICP_license: false,
     // 设置为 true 发布后将使用 unpkg cdn
