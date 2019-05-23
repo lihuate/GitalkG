@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-blog</title>
+
+    <link href="vendor/highlight.js/styles/atom-one-dark.css" rel="stylesheet" />
+    <!-- <link href="css/styles/github.css" rel="stylesheet" /> -->
+    <link href="css/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/icomoon.css">
+
+    <!-- 引入Gitment评论系统 -->
+    <!-- <link rel="stylesheet" href="vendor/gitment/style/default.css"> -->
+    <!-- 引入 gitalk 评论系统 -->
+    <link rel="stylesheet" href="vendor/gitalk/gitalk.css">
+
+    <!-- 图片预览PhotoSwipe -->
+    <link rel="stylesheet" href="vendor/PhotoSwipe/photoswipe.css">
+    <link rel="stylesheet" href="vendor/PhotoSwipe/default-skin/default-skin.css">
+
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="header" ref="indexHeader">
+            <span class="title" v-if="isSmTitle">{{ headerTitle || '' }}</span>
+            <span class="btn-back" v-if="detailPage" @click="back">
+                <i class="icon-back"></i>
+            </span>
+        </div>
+        <div class="header-bg">
+            <span class="title" :style="{ visibility: detailPage ? 'hidden' : 'visible' }" ref="indexTitle" v-if="!isSmTitle">{{ headerTitle || '' }}</span>
+        </div>
+        <transition name="slide-fade-left">
+            <div class="index" v-show="listPage">
+                <div class="main">
+                    <div class="listPage container">
+                        <div class="label-select">
+                            <span class="icon"><i class="icon-label"></i></span>
+                            <span class="label" v-for="label in allLabel" :style="{background: '#' + label.color}" @click="selectLabel(label.name)">{{ label.name }}</span>
+                        </div>
+                        <ul>
+                            <li v-for="item in baseData">
+                                <article class="blog-list-item">
+                                    <h3 class="title">
+                                        <a :href="'#/detail/' + item.number">{{ item.title }}</a>
+                                    </h3>
+                                    <div class="list-content">{{ item.body.substring(0, 200) }}{{ item.body.length > 200 ? '...' : ''}}<a :href="'#/detail/' + item.number" v-if="item.body.length > 200">阅读全文...</a></div>
+                                    <div class="label" v-if="item.labels.length">
+                                        <span v-for="label in item.labels" :style="{background: '#' + label.color}">{{ label.name }}</span>
+                                    </div>
+                                </article>
+                            </li>
+                        </ul>
+                        <!-- 页码逻辑，左边两个，右边两个，两个之后，如果还有超过两个，就显示...，可以在js中使用数组的方式来做，在数组前面添加或后面添加 -->
+                        <nav class="page-nav" v-if="baseData.length">
+                            <div class="inner">
+                                <span v-if="currentPage != 1" @click="changePage(+currentPage - 1)">上一页</span>
+                                <span :class="{ current: currentPage == 1 }" @click="changePage(currentPage == 1 ? false : 1)">1</span>
+                                <span v-if="showPrevMore" class="more" @click="changePage((+currentPage - 5) < 1 ? 1 : (+currentPage - 5))">...</span>
+                                <span v-for="pager in pagers" :class="{ current: currentPage == pager }" @click="changePage(currentPage == pager ? false : pager)">{{ pager }}</span>
+                                <span v-if="showNextMore" class="more" @click="changePage((+currentPage + 5) > pageCount ? pageCount : (+currentPage + 5))">...</span>
+                                <span href="#/" v-if="pageCount > 1" :class="{ current: currentPage == pageCount }" @click="changePage(currentPage == pageCount ? false : pageCount)">{{ pageCount }}</span>
+                                <span class="" rel="next" href="#/" v-if="currentPage != pageCount" @click="changePage(+currentPage + 1)">下一页</span>
+                            </div>
+                        </nav>
+                    </div>
+
+
+                </div>
+
+                <footer class="footer">
+                    <div class="copyright">
+                        <p>
+                            <span>
+                                Auven Zhang&nbsp;&copy;&nbsp;2017
+                            </span>
+                            <span>
+                                博客内容遵循
+                                <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                            </span>
+                        </p>
+                    </div>
+                </footer>
+            </div>
+
+        </transition>
+
+
+        <transition name="slide-fade-right">
+            <div class="article" v-show="detailPage">
+                <div class="main">
+                    <div class="container">
+                        <div class="detail">
+                            <div class="title-wrap">
+                                <div class="title" :style="{ visibility: isSmTitle ? 'hidden' : 'visible' }">{{ article ? article.title : '' }}</div>
+                                <div class="post-meta">
+                                    <a class="post-author" :href="article ? article.user.html_url : ''">
+                                        <img :src="article ? article.user.avatar_url : ''">
+                                        <span>{{ article ? article.user.login : '' }}</span>
+                                    </a>
+                                    <span class="post-time">{{ article ? article.created_at.split(/T|Z/)[0] + ' ' + article.created_at.split(/T|Z/)[1]
+                                        : '' }}</span>
+                                </div>
+                            </div>
+                            <div class="label" v-if="acticleLabel.length">
+                                <span class="icon"><i class="icon-label"></i></span>
+                                <span class="label-item" v-for="label in acticleLabel" :style="{background: '#' + label.color}">{{ label.name }}</span>
+                            </div>
+                            <div class="content" v-html="detailData" ref="detail"></div>
+                        </div>
+
+                        <!-- <div id="comments"></div> -->
+                        <div id="gitalk-container"></div>
+                    </div>
+                </div>
+                <footer class="footer">
+                    <div class="copyright">
+                        <p>
+                            <span>
+                                Auven Zhang&nbsp;&copy;&nbsp;2017
+                            </span>
+                            <span>
+                                博客内容遵循
+                                <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a>
+                            </span>
+                        </p>
+                    </div>
+                </footer>
+            </div>
+        </transition>
+
+
+
+        <transition name="fade">
+            <div class="loading" v-show="loading">
+                <!-- <div class="sk-folding-cube">
+                    <div class="sk-cube1 sk-cube"></div>
+                    <div class="sk-cube2 sk-cube"></div>
+                    <div class="sk-cube4 sk-cube"></div>
+                    <div class="sk-cube3 sk-cube"></div>
+                </div> -->
+                <div class="mikepad-loading">
+                    <div class="binding"></div>
+                    <div class="pad">
+                        <div class="line line1"></div>
+                        <div class="line line2"></div>
+                        <div class="line line3"></div>
+                    </div>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+        <!-- Background of PhotoSwipe. 
+                         It's a separate element as animating opacity is faster than rgba(). -->
+        <div class="pswp__bg"></div>
+
+        <!-- Slides wrapper with overflow:hidden. -->
+        <div class="pswp__scroll-wrap">
+
+            <!-- Container that holds slides. 
+                            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+                            Don't modify these 3 pswp__item elements, data is added later on. -->
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+
+            <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+            <div class="pswp__ui pswp__ui--hidden">
+
+                <div class="pswp__top-bar">
+
+                    <!--  Controls are self-explanatory. Order can be changed. -->
+
+                    <div class="pswp__counter"></div>
+
+                    <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                    <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                    <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                    <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                    <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                    <!-- element will get class pswp__preloader--active when preloader is running -->
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div>
+
+                <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+                </button>
+
+                <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+                </button>
+
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="vendor/vue/vue.min.js"></script>
+    <script src="vendor/vue-router/vue-router.min.js"></script>
+    <script src="vendor/axios/axios.min.js"></script>
+
+    <script type="text/javascript" src="vendor/marked/marked.min.js"></script>
+    <script type="text/javascript" src="vendor/highlight.js/highlight.pack.js"></script>
+
+    <!-- <script src="vendor/gitment/gitment.browser.js"></script> -->
+    <script src="vendor/gitalk/gitalk.min.js"></script>
+    <script src="vendor/md5/md5.min.js"></script>
+
+    <script src="vendor/PhotoSwipe/photoswipe.min.js"></script>
+    <script src="vendor/PhotoSwipe/photoswipe-ui-default.min.js"></script>
+
+    <!-- markdown锚点插件anchorjs -->
+    <script src="vendor/anchorjs/anchor.min.js"></script>
+
+    <script type="text/javascript" src="config.js"></script>
+    <script src="js/api.js"></script>    
+    <script src="js/index.js"></script>
+</body>
+
+</html>
