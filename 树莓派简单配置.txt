@@ -1,0 +1,165 @@
+刚上电后 可能需要一段时间才能连接ssh 
+
+
+关机  init 0 
+
+
+
+用户名密码
+Raspberry Pi
+默认用户是 pi 密码为 raspberry【可直接登入】
+
+root root      root  123456
+
+网络设置
+192.168.137.8 设置网线ip【不设置会自动分配】  设置网线固定ip方法 在 boot启动盘下  有个cmdline.txt  最前边加一句  ip= xxx.xxx.xxx.xxx  
+192.168.31.26  开机后设置wifi   输入命令：sudo raspi-config 选择第二个 输入  【dlcc   密码】  dlcc20180806
+
+wifi开机自启
+根目录下新建一个名为“wpa_supplicant.conf”的空白文件，并添加以下内容（不包括注释部分）：
+
+country=CN
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+    ssid="目标Wi-Fi名称"	#注意区分大小写
+    psk="目标Wi-Fi密码"	#注意区分大小写
+}
+
+
+opencv参考
+https://docs.opencv.org/master/d7/d9f/tutorial_linux_install.html    opencv配置文档
+https://www.jianshu.com/p/3180a253fe3c  【提供参考】
+https://github.com/pageauc/opencv3-setup  【自动脚本】
+https://www.jb51.net/article/142263.htm 【opencv读取摄像头】
+
+
+树莓派配置文件
+配置文件[引导目录下] cmdline.txt
+配置文件[引导目录下] config.txt
+
+显示器HDMI 
+ 插线自动识别，不识别参考  https://blog.csdn.net/gl2scv/article/details/84934341
+vnc wifi 蓝牙等  都在 sudo raspi-config  这里配置
+
+更换国内源
+东软的源缺少arm debian
+中科大 http://mirrors.ustc.edu.cn/
+
+nano /etc/apt/sources.list
+deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
+
+nano /etc/apt/sources.list.d/raspi.list
+deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ stretch main ui
+sudo apt-get update 
+
+
+buster 版源
+deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
+deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ buster main
+
+
+给pip换源
+
+sudo mkdir ~/.pip
+ls .pip
+sudo nano pip.conf
+在打开的文件中输入以下内容：
+
+[global]
+timeout = 10
+index-url =  http://mirrors.aliyun.com/pypi/simple/
+extra-index-url= http://pypi.douban.com/simple/
+[install]
+trusted-host=
+    mirrors.aliyun.com
+    pypi.douban.com
+
+
+
+
+系统下载
+ubunru增强版  https://github.com/chainsx/cxcore   
+https://www.raspberrypi.org/downloads/
+
+改变命令行颜色
+nano ~/.bashrc
+PS1='[\[\e[33;40m\]\u@\h \w \t]$ '
+PS1="\[\e[37;40m\][\[\e[33;40m\]\u\[\e[37;40m\]@\h \[\e[36;40m\]\w\[\e[0m\]]\\$ "
+alias ls='ls --color'
+
+使配置生效
+source ~/.bashrc 
+
+一些设置参考
+https://github.com/TommyZihao/Zihao-Blog/blob/master/01%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E6%9C%BA%E6%95%99%E7%A8%8B.md
+https://github.com/TommyZihao/Zihao-Blog/blob/master/02%E4%B8%80%E5%8A%B3%E6%B0%B8%E9%80%B8%E9%85%8D%E7%BD%AE%E6%A0%91%E8%8E%93%E6%B4%BE.md
+
+opencv2 python 版安装
+sudo apt-get install libopencv-dev
+sudo apt-get install python-opencv
+cv2.__version__
+
+opencv3 python 版安装
+apt install python3-opencv
+基于debian buster的
+
+vpsit.cn
+
+查服务开启状况
+sudo service --status-all
+
+
+python相关
+
+# 安装python3（精简版镜像是没有python3的所以安装）
+
+apt-get install python3
+
+# 安装pip、pip3（对应python2、python3）
+
+apt-get install python-pip
+
+apt-get install python3-pip
+
+# python3安装模块举例
+pip3 install requests
+
+# 树莓派默认python是python2.x。如果是用python3写的脚本在执行的时候，用python3 a.py这种方式就行了。
+
+pip3 安装本地 phl
+pip3 install cryptography-1.8.1-cp27-cp27m-win_amd64.whl
+原文：https://blog.csdn.net/watfe/article/details/53139179 
+
+
+ftp配置
+vsftpd.conf
+sudo apt-get install vsftpd
+sudo service vsftpd start
+sudo nano /etc/vsftpd.conf
+
+
+
+显示MB  GB
+ls -alh
+
+
+
+查分区大小
+sudo fdisk -l
+df -lh
+df -h
+Linux 加载与卸载U盘
+第一：以root用户登陆
+先加载USB模块 modprobe usb-storage
+用fdisk -l 看看U盘的设备
+假如U盘是sda1
+第二：确定在 目录 /mnt 下建立了 文件夹 /usb,如果未建立可键入一下命令：
+md /mnt/usb
+成功后进行下一步。
+第三,：载入 u 盘，需键入以下命令：
+mount -t vfat /dev/sda /mnt/usb_disk
+成功后，即可使用 u 盘了, 文件就在目录 /mnt/usb 下。
+第四：卸载u盘
+在使用完u盘后，在拔出前需要先键入卸载U盘命令
+命令如下： umount /mnt
