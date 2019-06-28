@@ -1,50 +1,50 @@
-¸ÕÉÏµçºó ¿ÉÄÜĞèÒªÒ»¶ÎÊ±¼ä²ÅÄÜÁ¬½Óssh 
+åˆšä¸Šç”µå å¯èƒ½éœ€è¦ä¸€æ®µæ—¶é—´æ‰èƒ½è¿æ¥ssh 
 
 
-¹Ø»ú  init 0 
+å…³æœº  init 0 
 
 
 
-ÓÃ»§ÃûÃÜÂë
+ç”¨æˆ·åå¯†ç 
 Raspberry Pi
-Ä¬ÈÏÓÃ»§ÊÇ pi ÃÜÂëÎª raspberry¡¾¿ÉÖ±½ÓµÇÈë¡¿
+é»˜è®¤ç”¨æˆ·æ˜¯ pi å¯†ç ä¸º raspberryã€å¯ç›´æ¥ç™»å…¥ã€‘
 
 root root      root  123456
 
-ÍøÂçÉèÖÃ
-192.168.137.8 ÉèÖÃÍøÏßip¡¾²»ÉèÖÃ»á×Ô¶¯·ÖÅä¡¿  ÉèÖÃÍøÏß¹Ì¶¨ip·½·¨ ÔÚ bootÆô¶¯ÅÌÏÂ  ÓĞ¸öcmdline.txt  ×îÇ°±ß¼ÓÒ»¾ä  ip= xxx.xxx.xxx.xxx  
-192.168.31.26  ¿ª»úºóÉèÖÃwifi   ÊäÈëÃüÁî£ºsudo raspi-config Ñ¡ÔñµÚ¶ş¸ö ÊäÈë  ¡¾dlcc   ÃÜÂë¡¿  dlcc20180806
+ç½‘ç»œè®¾ç½®
+192.168.137.8 è®¾ç½®ç½‘çº¿ipã€ä¸è®¾ç½®ä¼šè‡ªåŠ¨åˆ†é…ã€‘  è®¾ç½®ç½‘çº¿å›ºå®šipæ–¹æ³• åœ¨ bootå¯åŠ¨ç›˜ä¸‹  æœ‰ä¸ªcmdline.txt  æœ€å‰è¾¹åŠ ä¸€å¥  ip= xxx.xxx.xxx.xxx  
+192.168.31.26  å¼€æœºåè®¾ç½®wifi   è¾“å…¥å‘½ä»¤ï¼šsudo raspi-config é€‰æ‹©ç¬¬äºŒä¸ª è¾“å…¥  ã€dlcc   å¯†ç ã€‘  dlcc20180806
 
-wifi¿ª»ú×ÔÆô
-¸ùÄ¿Â¼ÏÂĞÂ½¨Ò»¸öÃûÎª¡°wpa_supplicant.conf¡±µÄ¿Õ°×ÎÄ¼ş£¬²¢Ìí¼ÓÒÔÏÂÄÚÈİ£¨²»°üÀ¨×¢ÊÍ²¿·Ö£©£º
+wifiå¼€æœºè‡ªå¯
+æ ¹ç›®å½•ä¸‹æ–°å»ºä¸€ä¸ªåä¸ºâ€œwpa_supplicant.confâ€çš„ç©ºç™½æ–‡ä»¶ï¼Œå¹¶æ·»åŠ ä»¥ä¸‹å†…å®¹ï¼ˆä¸åŒ…æ‹¬æ³¨é‡Šéƒ¨åˆ†ï¼‰ï¼š
 
 country=CN
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 network={
-    ssid="Ä¿±êWi-FiÃû³Æ"	#×¢ÒâÇø·Ö´óĞ¡Ğ´
-    psk="Ä¿±êWi-FiÃÜÂë"	#×¢ÒâÇø·Ö´óĞ¡Ğ´
+    ssid="ç›®æ ‡Wi-Fiåç§°"	#æ³¨æ„åŒºåˆ†å¤§å°å†™
+    psk="ç›®æ ‡Wi-Fiå¯†ç "	#æ³¨æ„åŒºåˆ†å¤§å°å†™
 }
 
 
-opencv²Î¿¼
-https://docs.opencv.org/master/d7/d9f/tutorial_linux_install.html    opencvÅäÖÃÎÄµµ
-https://www.jianshu.com/p/3180a253fe3c  ¡¾Ìá¹©²Î¿¼¡¿
-https://github.com/pageauc/opencv3-setup  ¡¾×Ô¶¯½Å±¾¡¿
-https://www.jb51.net/article/142263.htm ¡¾opencv¶ÁÈ¡ÉãÏñÍ·¡¿
+opencvå‚è€ƒ
+https://docs.opencv.org/master/d7/d9f/tutorial_linux_install.html    opencvé…ç½®æ–‡æ¡£
+https://www.jianshu.com/p/3180a253fe3c  ã€æä¾›å‚è€ƒã€‘
+https://github.com/pageauc/opencv3-setup  ã€è‡ªåŠ¨è„šæœ¬ã€‘
+https://www.jb51.net/article/142263.htm ã€opencvè¯»å–æ‘„åƒå¤´ã€‘
 
 
-Ê÷İ®ÅÉÅäÖÃÎÄ¼ş
-ÅäÖÃÎÄ¼ş[Òıµ¼Ä¿Â¼ÏÂ] cmdline.txt
-ÅäÖÃÎÄ¼ş[Òıµ¼Ä¿Â¼ÏÂ] config.txt
+æ ‘è“æ´¾é…ç½®æ–‡ä»¶
+é…ç½®æ–‡ä»¶[å¼•å¯¼ç›®å½•ä¸‹] cmdline.txt
+é…ç½®æ–‡ä»¶[å¼•å¯¼ç›®å½•ä¸‹] config.txt
 
-ÏÔÊ¾Æ÷HDMI 
- ²åÏß×Ô¶¯Ê¶±ğ£¬²»Ê¶±ğ²Î¿¼  https://blog.csdn.net/gl2scv/article/details/84934341
-vnc wifi À¶ÑÀµÈ  ¶¼ÔÚ sudo raspi-config  ÕâÀïÅäÖÃ
+æ˜¾ç¤ºå™¨HDMI 
+ æ’çº¿è‡ªåŠ¨è¯†åˆ«ï¼Œä¸è¯†åˆ«å‚è€ƒ  https://blog.csdn.net/gl2scv/article/details/84934341
+vnc wifi è“ç‰™ç­‰  éƒ½åœ¨ sudo raspi-config  è¿™é‡Œé…ç½®
 
-¸ü»»¹úÄÚÔ´
-¶«ÈíµÄÔ´È±ÉÙarm debian
-ÖĞ¿Æ´ó http://mirrors.ustc.edu.cn/
+æ›´æ¢å›½å†…æº
+ä¸œè½¯çš„æºç¼ºå°‘arm debian
+ä¸­ç§‘å¤§ http://mirrors.ustc.edu.cn/
 
 nano /etc/apt/sources.list
 deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ stretch main contrib non-free rpi
@@ -54,17 +54,17 @@ deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ stretch main ui
 sudo apt-get update 
 
 
-buster °æÔ´
+buster ç‰ˆæº
 deb http://mirrors.ustc.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
 deb http://mirrors.ustc.edu.cn/archive.raspberrypi.org/debian/ buster main
 
 
-¸øpip»»Ô´
+ç»™pipæ¢æº
 
 sudo mkdir ~/.pip
 ls .pip
 sudo nano pip.conf
-ÔÚ´ò¿ªµÄÎÄ¼şÖĞÊäÈëÒÔÏÂÄÚÈİ£º
+åœ¨æ‰“å¼€çš„æ–‡ä»¶ä¸­è¾“å…¥ä»¥ä¸‹å†…å®¹ï¼š
 
 [global]
 timeout = 10
@@ -78,61 +78,61 @@ trusted-host=
 
 
 
-ÏµÍ³ÏÂÔØ
-ubunruÔöÇ¿°æ  https://github.com/chainsx/cxcore   
+ç³»ç»Ÿä¸‹è½½
+ubunruå¢å¼ºç‰ˆ  https://github.com/chainsx/cxcore   
 https://www.raspberrypi.org/downloads/
 
-¸Ä±äÃüÁîĞĞÑÕÉ«
+æ”¹å˜å‘½ä»¤è¡Œé¢œè‰²
 nano ~/.bashrc
 PS1='[\[\e[33;40m\]\u@\h \w \t]$ '
 PS1="\[\e[37;40m\][\[\e[33;40m\]\u\[\e[37;40m\]@\h \[\e[36;40m\]\w\[\e[0m\]]\\$ "
 alias ls='ls --color'
 
-Ê¹ÅäÖÃÉúĞ§
+ä½¿é…ç½®ç”Ÿæ•ˆ
 source ~/.bashrc 
 
-Ò»Ğ©ÉèÖÃ²Î¿¼
+ä¸€äº›è®¾ç½®å‚è€ƒ
 https://github.com/TommyZihao/Zihao-Blog/blob/master/01%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E6%9C%BA%E6%95%99%E7%A8%8B.md
 https://github.com/TommyZihao/Zihao-Blog/blob/master/02%E4%B8%80%E5%8A%B3%E6%B0%B8%E9%80%B8%E9%85%8D%E7%BD%AE%E6%A0%91%E8%8E%93%E6%B4%BE.md
 
-opencv2 python °æ°²×°
+opencv2 python ç‰ˆå®‰è£…
 sudo apt-get install libopencv-dev
 sudo apt-get install python-opencv
 cv2.__version__
 
-opencv3 python °æ°²×°
+opencv3 python ç‰ˆå®‰è£…
 apt install python3-opencv
-»ùÓÚdebian busterµÄ
+åŸºäºdebian busterçš„
 
 vpsit.cn
 
-²é·şÎñ¿ªÆô×´¿ö
+æŸ¥æœåŠ¡å¼€å¯çŠ¶å†µ
 sudo service --status-all
 
 
-pythonÏà¹Ø
+pythonç›¸å…³
 
-# °²×°python3£¨¾«¼ò°æ¾µÏñÊÇÃ»ÓĞpython3µÄËùÒÔ°²×°£©
+# å®‰è£…python3ï¼ˆç²¾ç®€ç‰ˆé•œåƒæ˜¯æ²¡æœ‰python3çš„æ‰€ä»¥å®‰è£…ï¼‰
 
 apt-get install python3
 
-# °²×°pip¡¢pip3£¨¶ÔÓ¦python2¡¢python3£©
+# å®‰è£…pipã€pip3ï¼ˆå¯¹åº”python2ã€python3ï¼‰
 
 apt-get install python-pip
 
 apt-get install python3-pip
 
-# python3°²×°Ä£¿é¾ÙÀı
+# python3å®‰è£…æ¨¡å—ä¸¾ä¾‹
 pip3 install requests
 
-# Ê÷İ®ÅÉÄ¬ÈÏpythonÊÇpython2.x¡£Èç¹ûÊÇÓÃpython3Ğ´µÄ½Å±¾ÔÚÖ´ĞĞµÄÊ±ºò£¬ÓÃpython3 a.pyÕâÖÖ·½Ê½¾ÍĞĞÁË¡£
+# æ ‘è“æ´¾é»˜è®¤pythonæ˜¯python2.xã€‚å¦‚æœæ˜¯ç”¨python3å†™çš„è„šæœ¬åœ¨æ‰§è¡Œçš„æ—¶å€™ï¼Œç”¨python3 a.pyè¿™ç§æ–¹å¼å°±è¡Œäº†ã€‚
 
-pip3 °²×°±¾µØ phl
+pip3 å®‰è£…æœ¬åœ° phl
 pip3 install cryptography-1.8.1-cp27-cp27m-win_amd64.whl
-Ô­ÎÄ£ºhttps://blog.csdn.net/watfe/article/details/53139179 
+åŸæ–‡ï¼šhttps://blog.csdn.net/watfe/article/details/53139179 
 
 
-ftpÅäÖÃ
+ftpé…ç½®
 vsftpd.conf
 sudo apt-get install vsftpd
 sudo service vsftpd start
@@ -140,26 +140,31 @@ sudo nano /etc/vsftpd.conf
 
 
 
-ÏÔÊ¾MB  GB
+æ˜¾ç¤ºMB  GB
 ls -alh
 
 
 
-²é·ÖÇø´óĞ¡
+æŸ¥åˆ†åŒºå¤§å°
 sudo fdisk -l
 df -lh
 df -h
-Linux ¼ÓÔØÓëĞ¶ÔØUÅÌ
-µÚÒ»£ºÒÔrootÓÃ»§µÇÂ½
-ÏÈ¼ÓÔØUSBÄ£¿é modprobe usb-storage
-ÓÃfdisk -l ¿´¿´UÅÌµÄÉè±¸
-¼ÙÈçUÅÌÊÇsda1
-µÚ¶ş£ºÈ·¶¨ÔÚ Ä¿Â¼ /mnt ÏÂ½¨Á¢ÁË ÎÄ¼ş¼Ğ /usb,Èç¹ûÎ´½¨Á¢¿É¼üÈëÒ»ÏÂÃüÁî£º
+Linux åŠ è½½ä¸å¸è½½Uç›˜
+ç¬¬ä¸€ï¼šä»¥rootç”¨æˆ·ç™»é™†
+å…ˆåŠ è½½USBæ¨¡å— modprobe usb-storage
+ç”¨fdisk -l çœ‹çœ‹Uç›˜çš„è®¾å¤‡
+å‡å¦‚Uç›˜æ˜¯sda1
+ç¬¬äºŒï¼šç¡®å®šåœ¨ ç›®å½• /mnt ä¸‹å»ºç«‹äº† æ–‡ä»¶å¤¹ /usb,å¦‚æœæœªå»ºç«‹å¯é”®å…¥ä¸€ä¸‹å‘½ä»¤ï¼š
 md /mnt/usb
-³É¹¦ºó½øĞĞÏÂÒ»²½¡£
-µÚÈı,£ºÔØÈë u ÅÌ£¬Ğè¼üÈëÒÔÏÂÃüÁî£º
+æˆåŠŸåè¿›è¡Œä¸‹ä¸€æ­¥ã€‚
+ç¬¬ä¸‰,ï¼šè½½å…¥ u ç›˜ï¼Œéœ€é”®å…¥ä»¥ä¸‹å‘½ä»¤ï¼š
 mount -t vfat /dev/sda /mnt/usb_disk
-³É¹¦ºó£¬¼´¿ÉÊ¹ÓÃ u ÅÌÁË, ÎÄ¼ş¾ÍÔÚÄ¿Â¼ /mnt/usb ÏÂ¡£
-µÚËÄ£ºĞ¶ÔØuÅÌ
-ÔÚÊ¹ÓÃÍêuÅÌºó£¬ÔÚ°Î³öÇ°ĞèÒªÏÈ¼üÈëĞ¶ÔØUÅÌÃüÁî
-ÃüÁîÈçÏÂ£º umount /mnt
+æˆåŠŸåï¼Œå³å¯ä½¿ç”¨ u ç›˜äº†, æ–‡ä»¶å°±åœ¨ç›®å½• /mnt/usb ä¸‹ã€‚
+ç¬¬å››ï¼šå¸è½½uç›˜
+åœ¨ä½¿ç”¨å®Œuç›˜åï¼Œåœ¨æ‹”å‡ºå‰éœ€è¦å…ˆé”®å…¥å¸è½½Uç›˜å‘½ä»¤
+å‘½ä»¤å¦‚ä¸‹ï¼š umount /mnt
+
+
+å¦‚æœç¡¬ç›˜å˜æˆåªè¯»
+mount
+sudo mount /dev/mmcblk0p2 -o rw,remount
